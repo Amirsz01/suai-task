@@ -1,0 +1,34 @@
+{% extends "base.twig" %}
+
+{% block title %}Task info{% endblock %}
+{% block body %}
+<div class="container" id="app">
+    <input type="text" v-model="id" value="1" v-on:change="getTaskInfo()" placeholder="Введите ID задания">
+    <h3>Groups</h3>
+    <table class="table">
+    <thead>
+        <tr v-for='group in groups.slice(0,1)'>
+            <th v-for='(value,key) in group' scope="col">${ key }</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for='group in groups' scope="col">
+            <td v-for='values in group'>${ values } </td>
+        </tr>
+    </tbody>
+    </table>
+    <h3>Students</h3>
+    <table class="table">
+    <thead>
+        <tr v-for='student in students.slice(0,1)'>
+            <th v-for='(value,key) in student' scope="col">${ key }</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for='student in students' scope="col">
+            <td v-for='values in student'>${ values } </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+{% endblock %}
