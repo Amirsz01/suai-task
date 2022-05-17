@@ -6,4 +6,4 @@ use App\App;
 
 $app = new App();
 
-$app->render($_SERVER["REQUEST_URI"]??'verifier/workloads');
+$app->render($_SERVER["REQUEST_URI"]);
