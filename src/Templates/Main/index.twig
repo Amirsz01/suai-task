@@ -4,12 +4,12 @@
 {% block body %}
 <div class="container">
     <div class="btn-group-vertical" role="group" aria-label="...">
-        <a href="/tasks" class="btn btn-warning">Выборка всех заданий студента.</a>
-        <a href="/students" class="btn btn-warning">Выборка для проверяющего количества студентов для 1го задания с учётом привязки групп со студентами.</a>
+        <a href="/student/tasks" class="btn btn-warning">Выборка всех заданий студента.</a>
+        <a href="/task/students/count" class="btn btn-warning">Выборка для проверяющего количества студентов для 1го задания с учётом привязки групп со студентами.</a>
         <a href="/task/info" class="btn btn-warning">Выборка для задания списка групп и студентов.</a>
-        <a href="/workloads" class="btn btn-warning">Расчёт нагрузки проверяющих: какое количество заданий необходимо проверить, в том числе совместные. Представить в убывающем порядке.</a>
+        <a href="/verifier/workloads" class="btn btn-warning">Расчёт нагрузки проверяющих: какое количество заданий необходимо проверить, в том числе совместные. Представить в убывающем порядке.</a>
         <a href="/task/critical" class="btn btn-warning">Расчёт статистики "критически нагруженных" заданий: сколько студентов выполняет задание "делимое на" количество проверяющих это задание. Представить в убывающем порядке.</a>
-        <a href="/classes" class="btn btn-warning">Вывод списка студентов для конкретного занятия.</a>
+        <a href="/classes/students" class="btn btn-warning">Вывод списка студентов для конкретного занятия.</a>
     </div>
 </div>
 {% endblock %}

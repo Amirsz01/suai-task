@@ -9,6 +9,11 @@ class StudentsRepository extends Repository {
         parent::__construct();
     }
 
+    /**
+     * Getting all records.
+     * 
+     * @return Student[]
+     */
     public function getAll() {
         return $this->dbh->query("SELECT * FROM `Students`")->fetchAll(\PDO::FETCH_ASSOC);
     }

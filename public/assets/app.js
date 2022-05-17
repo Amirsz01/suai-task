@@ -29,7 +29,7 @@ new Vue({
                 });
         },
         getTasksByStudent: function () {
-            fetch('/tasks/get', {
+            fetch('/student/tasks/get', {
                 method: 'POST',
                 body: JSON.stringify({id: this.id})
             })  
@@ -47,7 +47,7 @@ new Vue({
                 });
         },
         getStudentsByClasses: function () {
-            fetch('/classes/get', {
+            fetch('/classes/students/get', {
                 method: 'POST',
                 body: JSON.stringify({id: this.id})
             })  
@@ -65,7 +65,7 @@ new Vue({
                 });
         },
         getStudentsCountByTask: function () {
-            fetch('/students/get', {
+            fetch('/task/students/count/get', {
                 method: 'POST',
                 body: JSON.stringify({id: this.id})
             })  

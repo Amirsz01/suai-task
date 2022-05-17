@@ -9,10 +9,31 @@ class VerifyersRepository extends Repository {
         parent::__construct();
     }
 
+    /**
+     * Getting all records.
+     * 
+     * @return Verifier[]
+     */
     public function getAll() {
-        return $this->dbh->query("SELECT * FROM `Verifyers`")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->dbh->query("SELECT * FROM `Verifyers`")->fetchAll();
     }
 
+    /**
+     * Getting all records with inner join tasks.
+     * 
+     * @return Verifier[]
+     */
+    public function getAllWithTasks() {
+        return $this->dbh->query("SELECT * FROM `Verifyers` INNER JOIN `Verifyers_For_Tasks` ON `Verifyers`.`id`=`Verifyers_For_Tasks`.`verifyers_id`")->fetchAll();
+    }
+
+    /**
+     * Getting all records by task id.
+     * 
+     * @param id Task ID
+     * 
+     * @return Verifier[]
+     */
     public function getByTaskId($id) {
         try {
             $query = $this->dbh->prepare("SELECT * FROM `Verifyers` LEFT JOIN `Verifyers_For_Tasks` ON `Verifyers`.`id`=`Verifyers_For_Tasks`.`verifyers_id` WHERE `Verifyers_For_Tasks`.`task_id`=?");
@@ -21,9 +42,16 @@ class VerifyersRepository extends Repository {
             print "Error!: " . $e->getMessage();
             die();
         }
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $query->fetchAll();
     }
 
+    /**
+     * Getting workloads for all verifyers. Calculation in mysql query.
+     * 
+     * @param id Task ID
+     * 
+     * @return Verifier[]
+     */
     public function getAllWorkLoad() {
         try {
             $query = $this->dbh->query("SELECT `Verifyers`.`id`, `Verifyers`.`name` , COUNT(`id`) as COUNT FROM `Verifyers` INNER JOIN `Verifyers_For_Tasks` ON `Verifyers`.`id`=`Verifyers_For_Tasks`.`verifyers_id` GROUP BY `Verifyers`.`id`");
@@ -31,6 +59,6 @@ class VerifyersRepository extends Repository {
             print "Error!: " . $e->getMessage();
             die();
         }
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $query->fetchAll();
     }
 }
