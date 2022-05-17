@@ -18,6 +18,11 @@ class StudentsRepository extends Repository {
         return $this->dbh->query("SELECT * FROM `Students`")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Getting all records.
+     * 
+     * @return Student[]
+     */
     public function getById($id) {
         try {
             $query = $this->dbh->prepare("SELECT * FROM `Students` WHERE `id`=?");
