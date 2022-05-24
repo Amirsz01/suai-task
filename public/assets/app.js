@@ -21,8 +21,8 @@ new Vue({
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    this.groups = json.groups
-                    this.students = json.students
+                    this.groups = json.groups ?? []
+                    this.students = json.students ?? []
                 })
                 .catch((error) => {
                     console.log(error);
@@ -40,7 +40,7 @@ new Vue({
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    this.tasks = json.tasks
+                    this.tasks = json.tasks ?? []
                 })
                 .catch((error) => {
                     console.log(error);
@@ -58,7 +58,7 @@ new Vue({
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    this.students = json.students
+                    this.students = json.students ?? []
                 })
                 .catch((error) => {
                     console.log(error);
@@ -76,7 +76,7 @@ new Vue({
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    this.count = json.count
+                    this.count = json.count ?? 'None'
                 })
                 .catch((error) => {
                     console.log(error);

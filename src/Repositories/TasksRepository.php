@@ -42,13 +42,8 @@ class TasksRepository extends Repository {
      * @return Verifier[]
      */
     public function getByStudentId($student_id) {
-        try {
-            $query = $this->dbh->prepare("SELECT * FROM `Tasks` INNER JOIN `Tasks_For_Students` ON `Tasks`.`id`=`Tasks_For_Students`.`task_id` WHERE `Tasks_For_Students`.`student_id`=?");
-            $query->execute([$student_id]);
-        } catch (\PDOException $e) {
-            print "Error!: " . $e->getMessage();
-            die();
-        }
+        $query = $this->dbh->prepare("SELECT * FROM `Tasks` INNER JOIN `Tasks_For_Students` ON `Tasks`.`id`=`Tasks_For_Students`.`task_id` WHERE `Tasks_For_Students`.`student_id`=?");
+        $query->execute([$student_id]);
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 

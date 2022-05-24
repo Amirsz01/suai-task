@@ -16,10 +16,6 @@ class MainController extends Controller {
      * @return page
      */
     public function index() {
-        try {
-            return $this->twig->render('Main/index.twig');
-        } catch(\Exception $e) {
-            return $e->getPrevious()->getMessage();
-        }
+        return $this->twig->render('Main/index.twig');
     }
 }

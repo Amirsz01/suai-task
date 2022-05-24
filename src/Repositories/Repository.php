@@ -1,12 +1,8 @@
 <?php
 namespace App\Repositories;
 
-interface RepositoryInterface {
-    public function __construct();
-    public function getAll();
-}
 
-class Repository
+class Repository implements \App\Interfaces\RepositoryInterface
 {
     protected $dbh;
     public function __construct()

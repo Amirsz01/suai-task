@@ -7,6 +7,7 @@ use App\Controllers\TaskController;
 use App\Controllers\ClassesController;
 use App\Controllers\StudentController;
 use App\Controllers\VerifierController;
+use App\Services\Validator;
 
 class Router {
     private static $routes = [];
@@ -18,8 +19,20 @@ class Router {
 
     public static function dispatch($action) {
         $action = trim($action, '/');
+        if(!array_key_exists($action, self::$routes))
+        {
+            throw new \Exception('Route not found');
+        }
         $callback = self::$routes[$action];
         echo call_user_func($callback);
+    }
+
+    public static function getParams($params = []) {
+        $POST = \json_decode(file_get_contents('php://input'));
+        $result = array_map(function ($item) use ($POST){
+            return Validator::checkInt($POST->$item) ? $POST->$item : throw new \Exception('Param validation error');
+        }, $params);
+        return $result;
     }
 }
 
@@ -59,30 +72,31 @@ Router::route('task/critical', function() {
 });
 
 Router::route('classes/students', function($id = 1) {
-    $studentController = new ClassesController();
-    return $studentController->studentsByClasses($id);
+    $classesController = new ClassesController();
+    return $classesController->studentsByClasses($id);
 });
 
 Router::route('task/info/get', function() {
-    $mainConroller = new TaskController();
-    $POST = \json_decode(file_get_contents('php://input'));
-    return \json_encode($mainConroller->getTaskInfo($POST->id));
+    $taskController = new TaskController();
+    $params = Router::getParams(['id' => 'id']);
+    return \json_encode($taskController->getTaskInfo($params['id']));
 });
 
 Router::route('student/tasks/get', function() {
-    $mainConroller = new StudentController();
-    $POST = \json_decode(file_get_contents('php://input'));
-    return \json_encode($mainConroller->getTasksByStudent($POST->id));
+    $studentController = new StudentController();
+    $params = Router::getParams(['id' => 'id']);
+    return \json_encode($studentController->getTasksByStudent($params['id']));
 });
 
 Router::route('classes/students/get', function() {
-    $mainConroller = new ClassesController();
-    $POST = \json_decode(file_get_contents('php://input'));
-    return \json_encode($mainConroller->getStudentsByClasses($POST->id));
+    $classesController = new ClassesController();
+    $params = Router::getParams(['id' => 'id']);
+    return \json_encode($classesController->getStudentsByClasses($params['id']));
 });
 
 Router::route('task/students/count/get', function() {
-    $mainConroller = new TaskController();
-    $POST = \json_decode(file_get_contents('php://input'));
-    return \json_encode($mainConroller->getStudentsCountByTask($POST->id));
+    $taskController = new TaskController();
+    $params = Router::getParams(['id' => 'id']);
+    $data = $taskController->getStudentsCountByTask($params['id']);
+    return \json_encode($data);
 });

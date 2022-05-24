@@ -5,11 +5,7 @@ namespace App\Controllers;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
-interface ControllerInterface {
-    public function __construct();
-}
-
-class Controller implements ControllerInterface {
+class Controller implements \App\Interfaces\ControllerInterface {
     protected $twig;
 
     public function __construct() {
